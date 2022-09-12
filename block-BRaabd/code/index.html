@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Colors</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      let buttons = {
+        Basketball: "basketball.jpg",
+        Cricket: "cricket.jpg",
+        Laptop: "laptop.jpg",
+        Phone: "phone.jpg",
+        PubG: "pubg.jpeg",
+        Tiger: "tiger.jpg",
+      };
+
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            button: "basketball.jpg",
+          };
+        }
+        handleClick = (e) => {
+          this.setState({
+            button: buttons[e.target.innerText],
+          });
+        };
+        render() {
+          return (
+            <div className="container mx-auto p-8">
+              <div className="max-w-lg mx-auto mb-4 text-center">
+                {Object.keys(buttons).map((button, i) => {
+                  return (
+                    <button
+                      key={i}
+                      onClick={(e) => this.handleClick(e)}
+                      className={`bg-sky-300 text-white py-2 px-2 mr-4 rounded-lg capitalize mb-4 ${
+                        this.state.button.split(".")[0] ===
+                        button.toLocaleLowerCase()
+                          ? "bg-red-400"
+                          : ""
+                      }`}
+                    >
+                      {button}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="max-w-md mx-auto">
+                <img
+                  className="w-full"
+                  src={`/assets/${this.state.button}`}
+                  alt=""
+                />
+              </div>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
