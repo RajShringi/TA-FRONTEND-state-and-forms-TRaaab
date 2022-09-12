@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Colors</title>
+    <title>Counter</title>
     <script
       crossorigin
       src="https://unpkg.com/react@18/umd/react.development.js"
@@ -24,6 +24,7 @@
           return (
             <>
               <CounterOne />
+              <CounterTwo />
             </>
           );
         }
@@ -67,7 +68,7 @@
                   <h2 className="mb-4 text-xl">Steps</h2>
                   <span
                     onClick={(e) => this.handleStep(e)}
-                    className={`cursor-pointer py-2 px-3 bg-blue-400 inline-block text-white mr-2 ${
+                    className={`cursor-pointer py-2 px-3 bg-gray-400 inline-block text-white mr-2 ${
                       this.state.step === 5 ? "bg-blue-600" : ""
                     }`}
                   >
@@ -75,7 +76,7 @@
                   </span>
                   <span
                     onClick={(e) => this.handleStep(e)}
-                    className={`cursor-pointer py-2 px-3 bg-blue-400 inline-block text-white mr-2 ${
+                    className={`cursor-pointer py-2 px-3 bg-gray-400 inline-block text-white mr-2 ${
                       this.state.step === 10 ? "bg-blue-600" : ""
                     }`}
                   >
@@ -83,12 +84,140 @@
                   </span>
                   <span
                     onClick={(e) => this.handleStep(e)}
-                    className={`cursor-pointer py-2 px-3 bg-blue-400 inline-block text-white mr-2 ${
+                    className={`cursor-pointer py-2 px-3 bg-gray-400 inline-block text-white mr-2 ${
                       this.state.step === 15 ? "bg-blue-600" : ""
                     }`}
                   >
                     15
                   </span>
+                </div>
+                <button
+                  onClick={this.handleIncrement}
+                  className="bg-green-300 p-2 text-white rounded-lg mr-2"
+                >
+                  Increment
+                </button>
+                <button
+                  onClick={this.handleDecrement}
+                  className="bg-green-300 p-2 text-white rounded-lg mr-2"
+                >
+                  Decrement
+                </button>
+                <button
+                  onClick={this.handleReset}
+                  className="bg-green-300 p-2 text-white rounded-lg mr-2"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          );
+        }
+      }
+
+      class CounterTwo extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            counter: 0,
+            step: 1,
+            max: Infinity,
+          };
+        }
+        handleIncrement = () => {
+          if (this.state.counter + this.state.step >= this.state.max) {
+            this.setState({
+              counter: this.state.max,
+            });
+            return;
+          }
+          this.setState({
+            counter: this.state.counter + this.state.step,
+          });
+        };
+        handleDecrement = () => {
+          this.setState({
+            counter: this.state.counter - this.state.step,
+          });
+        };
+        handleReset = () => {
+          this.setState({
+            counter: 0,
+            step: 1,
+            max: Infinity,
+          });
+        };
+        handleStep = (e) => {
+          this.setState({
+            step: parseInt(e.target.innerText),
+          });
+        };
+        handleMax = (e) => {
+          this.setState({
+            max: parseInt(e.target.innerText),
+          });
+        };
+
+        render() {
+          return (
+            <div className="container mx-auto">
+              <div className="max-w-md mx-auto text-center p-4">
+                <h1 className="mb-4 text-2xl">{this.state.counter}</h1>
+                <div className="mb-4 flex justify-between items-center">
+                  <div>
+                    <h2 className="mb-4 text-xl">Steps</h2>
+                    <span
+                      onClick={(e) => this.handleStep(e)}
+                      className={`cursor-pointer py-2 px-3 bg-gray-400 inline-block text-white mr-2 ${
+                        this.state.step === 5 ? "bg-blue-600" : ""
+                      }`}
+                    >
+                      5
+                    </span>
+                    <span
+                      onClick={(e) => this.handleStep(e)}
+                      className={`cursor-pointer py-2 px-3 bg-gray-400 inline-block text-white mr-2 ${
+                        this.state.step === 10 ? "bg-blue-600" : ""
+                      }`}
+                    >
+                      10
+                    </span>
+                    <span
+                      onClick={(e) => this.handleStep(e)}
+                      className={`cursor-pointer py-2 px-3 bg-gray-400 inline-block text-white mr-2 ${
+                        this.state.step === 15 ? "bg-blue-600" : ""
+                      }`}
+                    >
+                      15
+                    </span>
+                  </div>
+                  <div>
+                    <h2 className="mb-4 text-xl">Max Value</h2>
+                    <span
+                      onClick={(e) => this.handleMax(e)}
+                      className={`cursor-pointer py-2 px-3 bg-gray-400 inline-block text-white mr-2 ${
+                        this.state.max === 15 ? "bg-blue-600" : ""
+                      }`}
+                    >
+                      15
+                    </span>
+                    <span
+                      onClick={(e) => this.handleMax(e)}
+                      className={`cursor-pointer py-2 px-3 bg-gray-400 inline-block text-white mr-2 ${
+                        this.state.max === 100 ? "bg-blue-600" : ""
+                      }`}
+                    >
+                      100
+                    </span>
+                    <span
+                      onClick={(e) => this.handleMax(e)}
+                      className={`cursor-pointer py-2 px-3 bg-gray-400 inline-block text-white mr-2 ${
+                        this.state.max === 200 ? "bg-blue-600" : ""
+                      }`}
+                    >
+                      200
+                    </span>
+                  </div>
                 </div>
                 <button
                   onClick={this.handleIncrement}
