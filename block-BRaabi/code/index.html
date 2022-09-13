@@ -75,13 +75,14 @@
         render() {
           return (
             <div
-              className={`my-4 p-3 rounded-lg shadow-md ${
+              onClick={this.handleClick}
+              className={`my-4 p-3 rounded-lg shadow-md cursor-pointer ${
                 this.state.isOpen ? "bg-green-200" : "bg-yellow-200"
               }`}
             >
               <div className="mb-3 flex justify-between items-center">
                 <h1 className="text-2xl">{this.props.question.Q}</h1>
-                <button onClick={this.handleClick} className="text-2xl">
+                <button className="text-2xl">
                   {this.state.isOpen ? (
                     <i className="fa-solid fa-hand-point-up"></i>
                   ) : (
