@@ -34,8 +34,10 @@ class Categories extends React.Component {
             return (
               <button
                 onClick={() => this.handleClick(cat)}
-                className={`px-2 py-1 rounded-lg text-yellow-700 capitalize hover:bg-yellow-600 hover:text-white ${
-                  this.state.category === cat ? "bg-yellow-600 text-white" : ""
+                className={`px-2 py-1 rounded-lg capitalize hover:bg-yellow-600 hover:text-white ${
+                  this.state.category === cat
+                    ? "bg-yellow-600 text-white"
+                    : "text-yellow-600"
                 }`}
                 key={category}
               >
