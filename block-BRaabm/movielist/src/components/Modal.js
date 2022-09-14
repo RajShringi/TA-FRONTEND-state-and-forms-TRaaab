@@ -10,7 +10,7 @@ function Modal(props) {
       </div>
       <div className="mb-4">
         <img
-          className="w-full h-[300px] object-cover object-top"
+          className="w-full h-[400px] object-cover object-top"
           src={props.Images[0]}
           alt={props.Title}
         />
