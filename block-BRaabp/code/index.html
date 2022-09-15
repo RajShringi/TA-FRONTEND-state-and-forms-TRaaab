@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accordion</title>
+    <!-- React -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo+Play&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitter&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              oswald: ["Oswald", "sans-serif"],
+              lato: ["Lato", "sans-serif"],
+              Raleway: ["Raleway", "sans-serif"],
+              Lora: ["Lora", "serif"],
+              Barlow: ["Barlow", "sans-serif"],
+              Quicksand: ["Quicksand", "sans-serif"],
+              "cario-play": ["Cairo Play", "cursive"],
+              "open-sans": ["Open Sans", "sans-serif"],
+              "Ms-Madi": ["Ms Madi", "cursive"],
+              Bitter: ["Bitter", "serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const fonts = [
+        "oswald",
+        "lato",
+        "cario-play",
+        "open-sans",
+        "Raleway",
+        "Lora",
+        "Barlow",
+        "Quicksand",
+        "Ms-Madi",
+        "Bitter",
+      ];
+      // Fonts
+      function Fonts(props) {
+        return (
+          <div className="grid grid-cols-3 gap-4">
+            {fonts.map((font) => {
+              return (
+                <Font font={font} range={props.range} input={props.input} />
+              );
+            })}
+          </div>
+        );
+      }
+      // Font
+      function Font(props) {
+        return (
+          <div
+            className={`basis-[32%] p-4  border rounded-lg min-h-[320px] text-gray-700`}
+          >
+            <header>
+              <h3 className="text-xl capitalize">{props.font}</h3>
+            </header>
+            <div className={`font-${props.font} text-[${props.range}px]`}>
+              {props.input}
+            </div>
+          </div>
+        );
+      }
+      // App
+      class App extends React.Component {
+        constructor(props) {
+          super();
+          this.state = {
+            input: "",
+            range: 40,
+          };
+        }
+        handleInputChange = (e) => {
+          this.setState({
+            input: e.target.value,
+          });
+        };
+        handleRangeChange = (e) => {
+          this.setState({
+            range: e.target.value,
+          });
+        };
+        render() {
+          return (
+            <div className="container mx-auto">
+              {/* Input Component */}
+              <div className="py-4">
+                <div className="flex justify-between items-center">
+                  <input
+                    onChange={this.handleInputChange}
+                    className="border rounded-tl-full rounded-bl-full py-2 px-4  block basis-[75%] outline-none text-gray-700"
+                    type="text"
+                    placeholder="Type Something"
+                    value={this.state.input}
+                  />
+                  <div className="border border-l-0 rounded-tr-full rounded-br-full p-2  basis-1/2 flex justify-between items-center">
+                    <span className="text-gray-700">{this.state.range}px</span>
+                    <input
+                      onChange={this.handleRangeChange}
+                      type="range"
+                      min="10"
+                      max="100"
+                      value={this.state.range}
+                      className="rounded-lg cursor-pointer range-sm appearance h-[1.8px] w-[450px]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <Fonts range={this.state.range} input={this.state.input} />
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
