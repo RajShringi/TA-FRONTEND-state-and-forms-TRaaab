@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiple Inputs</title>
+    <!-- React -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor(props) {
+          super();
+          this.state = {
+            address: "",
+            zip: "",
+            city: "",
+            country: "",
+            billingAddress: "",
+            billingZip: "",
+            billingCity: "",
+            billingCountry: "",
+            sameAddress: false,
+            errors: {
+              address: "",
+            },
+          };
+        }
+        handleInput = (e) => {
+          const { id, value } = e.target;
+          const errors = this.state.errors;
+          if (id === "address") {
+            errors.address =
+              value.length < 8 ? "You need to enter at-least 8" : "";
+          }
+          if (id === "sameAddress") {
+            this.setState((prevState) => {
+              return {
+                sameAddress: !prevState.sameAddress,
+              };
+            });
+            return;
+          }
+          this.setState({
+            errors,
+            [id]: value,
+          });
+        };
+        render() {
+          return (
+            <div className="flex justify-between items-start">
+              <ShippingForm handleInput={this.handleInput} {...this.state} />
+              <BillingForm handleInput={this.handleInput} {...this.state} />
+            </div>
+          );
+        }
+      }
+      class ShippingForm extends React.Component {
+        constructor(props) {
+          super();
+        }
+
+        render() {
+          return (
+            <div className="max-w-lg mx-auto p-2 w-full">
+              <form className="text-gray-600 bg-gray-100 p-4 rounded-lg">
+                <h1 className="text-center mb-2 text-xl">Shipping Address</h1>
+                <label className="block text-lg my-4" htmlFor="address">
+                  Address
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none ${
+                      this.props.errors.address ? "border-red-400" : ""
+                    }`}
+                    id="address"
+                    type="text"
+                    placeholder="e.g New Delhi Vasant Vihar"
+                    value={this.props.address}
+                    onChange={this.props.handleInput}
+                  />
+                  <span className="text-red-400 text-sm">
+                    {this.props.errors.address}
+                  </span>
+                </label>
+                <label className="block text-lg my-4" htmlFor="zip">
+                  Zip/Postal Code
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none`}
+                    id="zip"
+                    type="text"
+                    placeholder="e.g 176023"
+                    value={this.props.zip}
+                    onChange={this.props.handleInput}
+                  />
+                </label>
+                <label className="block text-lg my-4" htmlFor="city">
+                  City
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none`}
+                    id="city"
+                    type="text"
+                    placeholder="e.g New Delhi"
+                    value={this.props.city}
+                    onChange={this.props.handleInput}
+                  />
+                </label>
+                <label className="block text-lg my-4" htmlFor="country">
+                  Country
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none`}
+                    id="country"
+                    type="text"
+                    placeholder="e.g India"
+                    value={this.props.country}
+                    onChange={this.props.handleInput}
+                  />
+                </label>
+              </form>
+            </div>
+          );
+        }
+      }
+
+      class BillingForm extends React.Component {
+        constructor(props) {
+          super();
+        }
+        render() {
+          const { address, city, zip, country, sameAddress } = this.props;
+          return (
+            <div className="max-w-lg mx-auto p-2 w-full">
+              <form className="text-gray-600 bg-gray-100 p-4 rounded-lg">
+                <h1 className="text-center mb-2 text-xl">Billing Address</h1>
+                <label className="block text-lg my-4" htmlFor="sameAddress">
+                  <input
+                    onChange={this.props.handleInput}
+                    className="mr-4"
+                    id="sameAddress"
+                    type="checkbox"
+                  />
+                  Same as the Shipping Address?
+                </label>
+                <label className="block text-lg my-4" htmlFor="billingAddress">
+                  Address
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none`}
+                    id="billingAddress"
+                    type="text"
+                    placeholder="e.g New Delhi Vasant Vihar"
+                    value={sameAddress ? address : this.props.billingAddress}
+                    onChange={this.props.handleInput}
+                  />
+                </label>
+                <label className="block text-lg my-4" htmlFor="billingZip">
+                  Zip/Postal Code
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none`}
+                    id="billingZip"
+                    type="text"
+                    placeholder="e.g 176023"
+                    value={sameAddress ? zip : this.props.billingZip}
+                    onChange={this.props.handleInput}
+                  />
+                </label>
+                <label className="block text-lg my-4" htmlFor="billingCity">
+                  City
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none`}
+                    id="billingCity"
+                    type="text"
+                    placeholder="e.g New Delhi"
+                    value={sameAddress ? city : this.props.billingCity}
+                    onChange={this.props.handleInput}
+                  />
+                </label>
+                <label className="block text-lg my-4" htmlFor="billingCountry">
+                  Country
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none`}
+                    id="billingCountry"
+                    type="text"
+                    placeholder="e.g India"
+                    value={sameAddress ? country : this.props.billingCountry}
+                    onChange={this.props.handleInput}
+                  />
+                </label>
+              </form>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
