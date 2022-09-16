@@ -13,22 +13,39 @@ class MasterForm extends React.Component {
       message: "",
     };
   }
+  handleChange = (e) => {
+    const { id, value } = e.target;
+    this.setState({
+      [id]: value,
+    });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { email, firstName, lastName } = this.state;
+    alert(`Your registration detail: \n 
+    Email: ${email} \n 
+    First Name: ${firstName} \n
+    Last Name: ${lastName}`);
+  };
+
   render() {
     return (
-      <div className="max-w-3xl rounded-lg mx-auto border min-h-[100px] overflow-hidden">
-        <div className="flex justify-between items-stretch">
-          <div className="basis-[30%]">
-            <img
-              className="w-full h-full object-cover"
-              src="https://cdn.dribbble.com/users/499399/screenshots/5240261/rocket_illustration_4x.png"
-              alt="rocket"
-            />
-          </div>
-          <div className="basis-[70%]">
-            <Step1 />
-          </div>
+      <form
+        onSubmit={this.handleSubmit}
+        className="max-w-3xl rounded-lg mx-auto border h-[500px] overflow-hidden flex justify-between items-stretch my-20"
+      >
+        <div className="basis-[30%]">
+          <img
+            className="w-full h-full object-cover"
+            src="https://cdn.dribbble.com/users/499399/screenshots/5240261/rocket_illustration_4x.png"
+            alt="rocket"
+          />
         </div>
-      </div>
+        <div className="basis-[70%]">
+          <Step1 handleChange={this.handleChange} {...this.state} />
+        </div>
+      </form>
     );
   }
 }
