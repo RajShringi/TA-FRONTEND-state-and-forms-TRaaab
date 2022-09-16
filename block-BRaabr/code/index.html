@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiple Inputs</title>
+    <!-- React -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function App() {
+        return (
+          <>
+            <MultipleInputs />
+            <FormValidation />
+          </>
+        );
+      }
+      class MultipleInputs extends React.Component {
+        constructor(props) {
+          super();
+          this.state = {
+            textInput: "",
+            dateInput: "",
+            textarea: "",
+            fileInput: React.createRef(),
+          };
+        }
+        handleInput = (e) => {
+          const { id, value } = e.target;
+          this.setState({
+            [id]: value,
+          });
+        };
+
+        render() {
+          return (
+            <div className="max-w-lg mx-auto p-2">
+              <form className="text-gray-600 bg-gray-100 p-4 rounded-lg">
+                <label className="block text-lg my-4" htmlFor="textInput">
+                  Text Input
+                  <input
+                    className="block border rounded-lg p-2 w-full"
+                    id="textInput"
+                    type="text"
+                    value={this.state.textInput}
+                    onChange={this.handleInput}
+                    placeholder="text Input"
+                  />
+                </label>
+                <label className="block text-lg my-4" htmlFor="dateInput">
+                  Date Input
+                  <input
+                    className="block border rounded-lg p-2 w-full"
+                    id="dateInput"
+                    type="date"
+                    value={this.state.dateInput}
+                    onChange={this.handleInput}
+                  />
+                </label>
+                <label className="block text-lg my-4" htmlFor="fileInput">
+                  File Input
+                  <input
+                    className="block border rounded-lg p-2 w-full"
+                    id="fileInput"
+                    type="file"
+                    ref={this.state.fileInput}
+                    onChange={this.handleInput}
+                  />
+                </label>
+                <label className="block text-lg my-4" htmlFor="readOnlyInput">
+                  Read Only Input
+                  <input
+                    className="block border rounded-lg p-2 w-full"
+                    id="readOnlyInput"
+                    type="text"
+                    value="This can only be copied"
+                    readOnly
+                  />
+                </label>
+                <label className="block text-lg my-4" htmlFor="disableInput">
+                  Disable Input
+                  <input
+                    className="block border rounded-lg p-2 w-full"
+                    id="disableInput"
+                    type="text"
+                    disabled
+                  />
+                </label>
+                <label className="block text-lg my-4" htmlFor="textarea">
+                  Textarea
+                  <textarea
+                    className="block border rounded-lg p-2 w-full"
+                    id="textarea"
+                    type="text"
+                    cols="30"
+                    rows="3"
+                    value={this.state.textarea}
+                    onChange={this.handleInput}
+                  ></textarea>
+                </label>
+                <label className="block text-lg my-4" htmlFor="disabletextarea">
+                  Textarea Disabled
+                  <textarea
+                    className="block border rounded-lg p-2 w-full"
+                    id="disabletextarea"
+                    type="text"
+                    cols="30"
+                    rows="3"
+                    disabled
+                  ></textarea>
+                </label>
+              </form>
+            </div>
+          );
+        }
+      }
+
+      class FormValidation extends React.Component {
+        constructor(props) {
+          super();
+          this.state = {
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            errors: {
+              username: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+            },
+          };
+        }
+        validateEmail = (email) => {
+          return String(email)
+            .toLowerCase()
+            .match(
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+        };
+        handleSubmit = (e) => {
+          e.preventDefault();
+          alert(this.state.username);
+        };
+        handleInput = (e) => {
+          const { id, value } = e.target;
+          console.log(id, value);
+          const errors = this.state.errors;
+          switch (id) {
+            case "username":
+              errors.username =
+                value.length < 3 ? "Username must be at least 3 character" : "";
+              break;
+            case "email":
+              errors.email = this.validateEmail(value)
+                ? ""
+                : "Email is not Valid";
+              break;
+            case "password":
+              errors.password =
+                value.length < 6 ? "Password must be at least 6 character" : "";
+              break;
+            case "confirmPassword":
+              errors.confirmPassword = value ? "" : "Password 2 is required";
+              break;
+            default:
+              break;
+          }
+          this.setState({
+            errors,
+            [id]: value,
+          });
+        };
+        render() {
+          const { username, email, password, confirmPassword } =
+            this.state.errors;
+          return (
+            <div className="max-w-lg mx-auto p-2">
+              <form
+                onSubmit={this.handleSubmit}
+                className="text-gray-600 bg-gray-100 p-4 rounded-lg"
+              >
+                <h1 className="text-center mb-2 text-xl">Register With Us</h1>
+                <label className="block text-lg my-4" htmlFor="username">
+                  Username
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none ${
+                      username ? "border-red-400" : ""
+                    }`}
+                    id="username"
+                    type="text"
+                    placeholder="Username"
+                    value={this.state.username}
+                    onChange={this.handleInput}
+                  />
+                  <span className="text-red-400 text-sm">{username}</span>
+                </label>
+                <label className="block text-lg my-4" htmlFor="email">
+                  Email
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none ${
+                      email ? "border-red-400" : ""
+                    }`}
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    value={this.state.email}
+                    onChange={this.handleInput}
+                  />
+                  <span className="text-red-400 text-sm">{email}</span>
+                </label>
+                <label className="block text-lg my-4" htmlFor="password">
+                  Password
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none ${
+                      password ? "border-red-400" : ""
+                    }`}
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.handleInput}
+                  />
+                  <span className="text-red-400 text-sm">{password}</span>
+                </label>
+                <label className="block text-lg my-4" htmlFor="confirmPassword">
+                  Confirm Password
+                  <input
+                    className={`block border rounded-lg p-2 w-full outline-none ${
+                      confirmPassword ? "border-red-400" : ""
+                    }`}
+                    id="confirmPassword"
+                    type="password"
+                    placeholder="Enter Password again"
+                    value={this.state.confirmPassword}
+                    onChange={this.handleInput}
+                  />
+                  <span className="text-red-400 text-sm">
+                    {confirmPassword}
+                  </span>
+                </label>
+                <input
+                  className="py-2 px-4 rounded-lg bg-sky-400 text-slate-50 cursor-pointer"
+                  type="submit"
+                  value="Submit"
+                />
+              </form>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
