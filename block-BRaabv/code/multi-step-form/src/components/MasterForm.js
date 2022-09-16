@@ -1,10 +1,11 @@
 import React from "react";
 import Step1 from "../components/Step1";
+import Step2 from "./Step2";
 class MasterForm extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      currentStep: 1,
+      currentStep: 2,
       firstName: "",
       lastName: "",
       dob: "",
@@ -14,9 +15,9 @@ class MasterForm extends React.Component {
     };
   }
   handleChange = (e) => {
-    const { id, value } = e.target;
+    const { name, value } = e.target;
     this.setState({
-      [id]: value,
+      [name]: value,
     });
   };
 
@@ -44,6 +45,7 @@ class MasterForm extends React.Component {
         </div>
         <div className="basis-[70%]">
           <Step1 handleChange={this.handleChange} {...this.state} />
+          <Step2 handleChange={this.handleChange} {...this.state} />
         </div>
       </form>
     );

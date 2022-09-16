@@ -51,6 +51,7 @@ class Step1 extends React.Component {
             First Name
             <input
               id="firstName"
+              name="firstName"
               className="border block p-2 rounded-lg w-full"
               type="text"
               value={this.props.firstName}
@@ -61,6 +62,7 @@ class Step1 extends React.Component {
             Last Name
             <input
               id="lastName"
+              name="lastName"
               className="border block p-2 rounded-lg w-full"
               type="text"
               value={this.props.lastName}
@@ -73,6 +75,7 @@ class Step1 extends React.Component {
             Date of Birth
             <input
               id="dob"
+              name="dob"
               className="border block p-2 rounded-lg w-full"
               type="date"
               value={this.props.dob}
@@ -83,6 +86,7 @@ class Step1 extends React.Component {
             Email
             <input
               id="email"
+              name="email"
               className="border block p-2 rounded-lg w-full"
               type="email"
               value={this.props.email}
@@ -94,6 +98,7 @@ class Step1 extends React.Component {
           Address
           <input
             id="address"
+            name="address"
             className="border block p-2 rounded-lg w-full"
             type="text"
             value={this.props.address}
