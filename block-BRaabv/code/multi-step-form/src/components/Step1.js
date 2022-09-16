@@ -9,7 +9,7 @@ class Step1 extends React.Component {
       return null;
     }
     return (
-      <div className="p-6 text-gray-700">
+      <div className="">
         <header className="mb-8">
           <div className="mb-8 border-b pb-3 flex justify-start items-center">
             <div className="mr-8">

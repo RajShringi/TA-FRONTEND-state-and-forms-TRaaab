@@ -1,10 +1,10 @@
 import React from "react";
-class Step2 extends React.Component {
+class Step3 extends React.Component {
   constructor(props) {
     super();
   }
   render() {
-    if (this.props.currentStep !== 2) {
+    if (this.props.currentStep !== 3) {
       // Prop: The current step
       return null;
     }
@@ -43,8 +43,8 @@ class Step2 extends React.Component {
               <span className="text-sm text-gray-400">Checkbox</span>
             </div>
           </div>
-          <p className="text-sm text-gray-400">step 2/3</p>
-          <h2 className="text-xl text-gray-900 font-bold">Message</h2>
+          <p className="text-sm text-gray-400">step 3/3</p>
+          <h2 className="text-xl text-gray-900 font-bold">Checkbox</h2>
         </header>
 
         <label className="text-sm mr-8 basis-[45%]">
@@ -59,29 +59,33 @@ class Step2 extends React.Component {
           ></textarea>
         </label>
 
-        <div className="flex justify-start items-center text-sm">
-          <input
-            className="mr-2"
-            type="radio"
-            id="option1"
-            name="option"
-            value="The number one choice"
-            onChange={this.props.handleChange}
-          />
-          The number one choice
-          <input
-            className="mr-2 ml-4"
-            type="radio"
-            id="option2"
-            name="option"
-            value="The number two choice"
-            onChange={this.props.handleChange}
-          />
-          The number two choice
+        <div>
+          <label className="block text-sm">
+            <input
+              className="mr-2"
+              type="radio"
+              id="option1"
+              name="checkboxOption"
+              value="I want to add this option"
+              onChange={this.props.handleChange}
+            />
+            I want to add this option
+          </label>
+          <label className="block text-sm">
+            <input
+              className="mr-2"
+              type="radio"
+              id="option1"
+              name="checkboxOption"
+              value="Let me click on this checkbox and choose some cool stuff"
+              onChange={this.props.handleChange}
+            />
+            Let me click on this checkbox and choose some cool stuff
+          </label>
         </div>
       </div>
     );
   }
 }
 
-export default Step2;
+export default Step3;
