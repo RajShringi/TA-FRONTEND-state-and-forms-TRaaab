@@ -1,4 +1,5 @@
 import React from "react";
+import { TbBrandApple, TbKayak } from "react-icons/tb";
 class Step3 extends React.Component {
   constructor(props) {
     super();
@@ -47,17 +48,14 @@ class Step3 extends React.Component {
           <h2 className="text-xl text-gray-900 font-bold">Checkbox</h2>
         </header>
 
-        <label className="text-sm mr-8 basis-[45%]">
-          Message
-          <textarea
-            id="message"
-            name="message"
-            className="border block p-2 rounded-lg w-full"
-            value={this.props.message}
-            onChange={this.props.handleChange}
-            rows="5"
-          ></textarea>
-        </label>
+        <div className="flex justify-between items-center mb-6">
+          <div className="basis-[45%] border rounded-lg border-red-500 w-28 h-28 flex justify-center items-center">
+            <TbBrandApple className="text-4xl text-red-500" />
+          </div>
+          <div className="basis-[45%] border rounded-lg text-center w-28 h-28 flex justify-center items-center">
+            <TbKayak className="text-4xl" />
+          </div>
+        </div>
 
         <div>
           <label className="block text-sm">
