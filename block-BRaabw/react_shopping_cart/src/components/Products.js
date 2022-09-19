@@ -1,8 +1,16 @@
 function Products(props) {
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-8">
         <p>{props.products.length} Product(s) found</p>
+        <select
+          onChange={props.handleChange}
+          className="outline-none border p-1 rounded-md"
+        >
+          <option value="">Select Order</option>
+          <option value="Lowest to highest">Lowest to highest</option>
+          <option value="Highest to lowest">Highest to lowest</option>
+        </select>
       </div>
       <div className="basis-[80%] grid grid-cols-4 gap-8">
         {props.products.map((product, index) => {
@@ -29,7 +37,7 @@ function Products(props) {
                     {(product.price / product.installments).toFixed(2)}
                   </span>
                 </p>
-                <button className="bg-gray-800 text-slate-200 w-full font-light py-4 group-hover:bg-yellow-500">
+                <button className="bg-gray-800 text-slate-200 w-full font-light py-4 transition-all group-hover:bg-yellow-500">
                   Add To Cart
                 </button>
               </div>
