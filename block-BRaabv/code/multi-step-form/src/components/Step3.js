@@ -49,11 +49,31 @@ class Step3 extends React.Component {
         </header>
 
         <div className="flex justify-between items-center mb-6">
-          <div className="basis-[45%] border rounded-lg border-red-500 w-28 h-28 flex justify-center items-center">
-            <TbBrandApple className="text-4xl text-red-500" />
+          <div
+            id="apple"
+            onClick={this.props.handleChange}
+            className={`basis-[45%] border rounded-lg w-28 h-28 flex justify-center items-center ${
+              this.props.activeImage === "apple" ? "border-red-500" : ""
+            }`}
+          >
+            <TbBrandApple
+              className={`text-4xl ${
+                this.props.activeImage === "apple" ? "text-red-500" : ""
+              }`}
+            />
           </div>
-          <div className="basis-[45%] border rounded-lg text-center w-28 h-28 flex justify-center items-center">
-            <TbKayak className="text-4xl" />
+          <div
+            id="kayak"
+            onClick={this.props.handleChange}
+            className={`basis-[45%] border rounded-lg text-center w-28 h-28 flex justify-center items-center ${
+              this.props.activeImage === "kayak" ? "border-red-500" : ""
+            }`}
+          >
+            <TbKayak
+              className={`text-4xl ${
+                this.props.activeImage === "kayak" ? "text-red-500" : ""
+              }`}
+            />
           </div>
         </div>
 

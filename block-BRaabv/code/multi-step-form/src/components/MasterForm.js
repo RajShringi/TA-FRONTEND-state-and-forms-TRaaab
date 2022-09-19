@@ -13,10 +13,17 @@ class MasterForm extends React.Component {
       email: "",
       address: "",
       message: "",
+      activeImage: "",
     };
   }
   handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, id } = e.target;
+    if (id === "apple" || id === "kayak") {
+      this.setState({
+        activeImage: id === this.state.activeImage ? "" : id,
+      });
+      return;
+    }
     this.setState({
       [name]: value,
     });
@@ -70,25 +77,32 @@ class MasterForm extends React.Component {
     if (currentStep < 3) {
       return (
         <button
-          className="bg-red-500 py-2 px-4 text-sm text-gray-50 rounded-lg"
+          className="bg-red-500 py-2 px-4 text-sm text-gray-50 rounded-lg pqr"
           type="button"
           onClick={this.next}
         >
           Next
         </button>
       );
+    } else {
+      return (
+        <button
+          className="bg-red-500 py-2 px-4 text-sm text-gray-50 rounded-lg abc"
+          type="submit"
+          onClick={this.handleSubmit}
+        >
+          Submit
+        </button>
+      );
     }
 
     // ...else render nothing
-    return null;
+    // return null;
   }
 
   render() {
     return (
-      <form
-        onSubmit={this.handleSubmit}
-        className="max-w-3xl rounded-lg mx-auto border h-[500px] overflow-hidden flex justify-between items-stretch my-20"
-      >
+      <div className="max-w-3xl rounded-lg mx-auto border h-[500px] overflow-hidden flex justify-between items-stretch my-20">
         <div className="basis-[30%]">
           <img
             className="w-full h-full object-cover"
@@ -103,19 +117,10 @@ class MasterForm extends React.Component {
           <div className="mt-4 flex justify-end items-center border-t py-4">
             {this.previousButton}
             {this.nextButton}
-            {this.state.currentStep === 3 ? (
-              <button
-                className="bg-red-500 py-2 px-4 text-sm text-gray-50 rounded-lg"
-                type="submit"
-              >
-                Submit
-              </button>
-            ) : (
-              ""
-            )}
+            {/* {this.state.currentStep === 3 ? } */}
           </div>
         </div>
-      </form>
+      </div>
     );
   }
 }
