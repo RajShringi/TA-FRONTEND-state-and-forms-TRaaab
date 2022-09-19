@@ -1,21 +1,19 @@
-import data from "../data.json";
-function Sizes() {
-  // Filter all Sizes
-  let allSizes = [];
-  data.products.forEach((item) => {
-    item.availableSizes.forEach((size) => {
-      if (!allSizes.includes(size)) {
-        allSizes.push(size);
-      }
-    });
-  });
+function Sizes(props) {
   return (
-    <div>
+    <div className="basis-[15%]">
       <h4 className="mb-5 font-semibold">Sizes:</h4>
-      <div className="w-[15%]  grid grid-cols-4 gap-2 text-xs font-light">
-        {allSizes.map((size) => {
+      <div className="grid grid-cols-4 gap-2 text-xs font-light">
+        {props.allSizes.map((size) => {
           return (
-            <button className="h-[35px] w-[35px] p-1 rounded-full bg-neutral-200">
+            <button
+              onClick={() => props.handleFilter(size)}
+              key={size}
+              className={`h-[35px] w-[35px] p-1 rounded-full  ${
+                props.filter.includes(size)
+                  ? "bg-gray-800 text-white"
+                  : "bg-neutral-200"
+              }`}
+            >
               {size}
             </button>
           );
