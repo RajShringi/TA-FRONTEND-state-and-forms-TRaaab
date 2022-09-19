@@ -41,6 +41,7 @@ class App extends React.Component {
       products = data.products;
     } else {
       products = data.products.filter((item) => {
+        // if item.availableSizes = ['M', 'L'] then check if filter have one of these sizes
         return item.availableSizes.some((size) =>
           this.state.filterBySize.includes(size)
         );
