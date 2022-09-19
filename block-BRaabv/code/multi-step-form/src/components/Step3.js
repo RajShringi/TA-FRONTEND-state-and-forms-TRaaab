@@ -1,4 +1,5 @@
 import React from "react";
+import { TbBrandApple, TbKayak } from "react-icons/tb";
 class Step3 extends React.Component {
   constructor(props) {
     super();
@@ -47,17 +48,34 @@ class Step3 extends React.Component {
           <h2 className="text-xl text-gray-900 font-bold">Checkbox</h2>
         </header>
 
-        <label className="text-sm mr-8 basis-[45%]">
-          Message
-          <textarea
-            id="message"
-            name="message"
-            className="border block p-2 rounded-lg w-full"
-            value={this.props.message}
-            onChange={this.props.handleChange}
-            rows="5"
-          ></textarea>
-        </label>
+        <div className="flex justify-between items-center mb-6">
+          <div
+            id="apple"
+            onClick={this.props.handleChange}
+            className={`basis-[45%] border rounded-lg w-28 h-28 flex justify-center items-center ${
+              this.props.activeImage === "apple" ? "border-red-500" : ""
+            }`}
+          >
+            <TbBrandApple
+              className={`text-4xl ${
+                this.props.activeImage === "apple" ? "text-red-500" : ""
+              }`}
+            />
+          </div>
+          <div
+            id="kayak"
+            onClick={this.props.handleChange}
+            className={`basis-[45%] border rounded-lg text-center w-28 h-28 flex justify-center items-center ${
+              this.props.activeImage === "kayak" ? "border-red-500" : ""
+            }`}
+          >
+            <TbKayak
+              className={`text-4xl ${
+                this.props.activeImage === "kayak" ? "text-red-500" : ""
+              }`}
+            />
+          </div>
+        </div>
 
         <div>
           <label className="block text-sm">
