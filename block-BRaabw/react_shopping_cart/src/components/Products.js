@@ -1,6 +1,6 @@
 function Products(props) {
   return (
-    <div>
+    <div className="basis-[80%]">
       <div className="flex justify-between items-center mb-8">
         <p>{props.products.length} Product(s) found</p>
         <select
@@ -21,7 +21,7 @@ function Products(props) {
             >
               <div className="mb-1">
                 <img
-                  className="h-[250px] w-full object-cover object-top"
+                  className="w-full"
                   src={`/static/products/${product.sku}_1.jpg`}
                   alt={product.title}
                 />
@@ -37,7 +37,10 @@ function Products(props) {
                     {(product.price / product.installments).toFixed(2)}
                   </span>
                 </p>
-                <button className="bg-gray-800 text-slate-200 w-full font-light py-4 transition-all group-hover:bg-yellow-500">
+                <button
+                  onClick={() => props.addToCart(product)}
+                  className="bg-gray-800 text-slate-200 w-full font-light py-4 transition-all group-hover:bg-yellow-500"
+                >
                   Add To Cart
                 </button>
               </div>
