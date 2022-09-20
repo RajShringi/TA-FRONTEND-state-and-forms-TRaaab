@@ -22,7 +22,6 @@ class App extends React.Component {
       selected: "",
       cart: [],
       isCartOpen: false,
-      subTotal: 0.0,
     };
   }
 
@@ -50,7 +49,7 @@ class App extends React.Component {
     let index = this.state.cart.findIndex(
       (product) => product.id === addToCartProduct.id
     );
-    let cart, subTotal;
+    let cart;
     if (index === -1) {
       cart = [
         ...this.state.cart,
@@ -64,20 +63,16 @@ class App extends React.Component {
           id: addToCartProduct.id,
         },
       ];
-      subTotal = this.getSubTotal(cart);
       this.setState({
         cart,
         isCartOpen: true,
-        subTotal,
       });
     } else {
       cart = this.state.cart;
       cart[index].quantity++;
-      subTotal = this.getSubTotal(cart);
 
       this.setState({
         cart,
-        subTotal,
       });
     }
   };
@@ -92,44 +87,29 @@ class App extends React.Component {
     let index = this.state.cart.findIndex((product) => product.id === id);
     let cart = this.state.cart;
     cart.splice(index, 1);
-    let subTotal = this.getSubTotal(cart);
     this.setState({
       cart,
-      subTotal,
     });
   };
   increaseQuantity = (id) => {
     let index = this.state.cart.findIndex((product) => product.id === id);
     let cart = this.state.cart;
     cart[index].quantity++;
-    let subTotal = this.getSubTotal(cart);
 
     this.setState({
       cart,
-      subTotal,
     });
   };
   decreaseQuantity = (id) => {
     let index = this.state.cart.findIndex((product) => product.id === id);
     let cart = this.state.cart;
     cart[index].quantity--;
-    let subTotal = this.getSubTotal(cart);
 
     this.setState({
       cart,
-      subTotal,
     });
   };
-  getSubTotal = (cart) => {
-    let subtotal = cart.reduce((acc, cur) => {
-      acc += cur.price * cur.quantity;
-      return acc;
-    }, 0);
-    return subtotal;
-  };
-  handleCheckout = () => {
-    alert(`Chekout: Subtotal: $ ${this.state.subTotal}`);
-  };
+
   render() {
     // filter based on users gievn sizes
     let products;

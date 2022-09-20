@@ -5,6 +5,17 @@ import {
   AiOutlineMinus,
 } from "react-icons/ai";
 
+const getSubTotal = (cart) => {
+  let subtotal = cart.reduce((acc, cur) => {
+    acc += cur.price * cur.quantity;
+    return acc;
+  }, 0);
+  return subtotal.toFixed(2);
+};
+const handleCheckout = (cart) => {
+  alert(`Chekout: Subtotal: $ ${getSubTotal(cart)}`);
+};
+
 function Cart(props) {
   return (
     <div className="bg-gray-800 fixed top-0 right-0 w-[30%] bottom-0 text-gray-200 flex justify-between flex-col">
@@ -85,11 +96,11 @@ function Cart(props) {
       <div className="p-4 shadow-[0_-6px_4px_0px_rgba(0,0,0,0.1)]">
         <div className="flex justify-between items-center text-xl">
           <p className="uppercase font-extralight">subtotal</p>
-          <p className="text-yellow-500">${props.subtotal.toFixed(2)}</p>
+          <p className="text-yellow-500">${getSubTotal(props.cart)}</p>
         </div>
         <div className="text-center mt-16">
           <button
-            onClick={props.handleCheckout}
+            onClick={() => handleCheckout(props.cart)}
             className="uppercase bg-gray-900 py-4 w-full hover:bg-gray-700 transition-all"
           >
             checkout
