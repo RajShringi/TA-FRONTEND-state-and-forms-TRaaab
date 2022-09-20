@@ -164,7 +164,10 @@ class App extends React.Component {
         >
           <AiOutlineShoppingCart className="text-4xl text-gray-200" />
           <span className="bg-yellow-500 text-gray-800  text-sm rounded-full w-[20px] h-[20px] text-center inline-block absolute bottom-[-10px] right-1 ">
-            {this.state.cart.length}
+            {this.state.cart.reduce((acc, cur) => {
+              acc += cur.quantity;
+              return acc;
+            }, 0)}
           </span>
         </div>
         <Sizes

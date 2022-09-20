@@ -12,7 +12,10 @@ function Cart(props) {
         <div className="relative mr-8">
           <AiOutlineShoppingCart className="text-4xl" />
           <span className="bg-yellow-500 text-gray-800  text-sm rounded-full w-[20px] h-[20px] text-center inline-block absolute bottom-[-8px] right-[-7px] ">
-            {props.cart.length}
+            {props.cart.reduce((acc, cur) => {
+              acc += cur.quantity;
+              return acc;
+            }, 0)}
           </span>
         </div>
         <h2 className="text-gray-100 font-bold">Cart</h2>
