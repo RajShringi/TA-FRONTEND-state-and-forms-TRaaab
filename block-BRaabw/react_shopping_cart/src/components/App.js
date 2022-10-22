@@ -25,6 +25,23 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount = () => {
+    if (localStorage.cart) {
+      this.setState({
+        cart: JSON.parse(localStorage.cart) || [],
+      });
+    }
+    window.addEventListener("beforeunload", this.handleUpdateLocalStorage);
+  };
+
+  componentWillUnmount = () => {
+    window.removeEventListener("beforeunload", this.handleUpdateLocalStorage);
+  };
+
+  handleUpdateLocalStorage = () => {
+    localStorage.setItem("cart", JSON.stringify(this.state.cart));
+  };
+
   handleFilter = (size) => {
     let sizeAlreadyInFilter = this.state.filterBySize.includes(size);
     let filterBySize;
